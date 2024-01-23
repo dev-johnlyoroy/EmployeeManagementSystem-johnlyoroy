@@ -1,0 +1,259 @@
+﻿@section TitleContent{ Employees }
+
+<div class="element-wrapper">
+    <h5 class="element-header">Employee</h5>
+    <div class="element-box-tp">
+        <div class="controls-above-table">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-success btn-sm" data-target="#exampleModal1" data-toggle="modal" type="button"><i class="os-icon os-icon-plus-circle"></i><span>Add Employee</span></button>
+                </div>
+                <div class="col-sm-6">
+                    <form class="form-inline justify-content-sm-end">
+                        <input id="employeeSearchInput" class="form-control form-control-sm rounded bright" placeholder="Search Name/Position" type="text">
+                        <select id="sortOption" class="form-control form-control-sm rounded bright">
+                            <option selected="selected" value="">
+                                Sort by
+                            </option>
+                            <option value="Name">
+                                Name
+                            </option>
+                            <option value="Position">
+                                Position
+                            </option>
+                        </select>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-padded">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Position
+                        </th>
+                        <th class="text-right">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal1" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Employee Info
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="employeeForm">
+                    <div class="form-group">
+                        <label for="employeeName">Name</label>
+                        <input id="employeeName" class="form-control" type="text" placeholder="Enter Name">
+                        <div class="help-block form-text with-errors form-control-feedback"><span id="validationEmployeeName" class="validation-message"></span></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employeePosition">Position</label>
+                        <input id="employeePosition" class="form-control" type="text" placeholder="Enter Position">
+                        <div class="help-block form-text with-errors form-control-feedback">
+                            <span id="validationemployeePosition" class="validation-message"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employeeDepartment">Department</label>
+                        <input id="employeeDepartment" class="form-control" type="text" placeholder="Enter Department">
+                        <div class="help-block form-text with-errors form-control-feedback">
+                            <span id="validationemployeeDepartment" class="validation-message"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfJoining">Date of Joining</label>
+                        <div class="date-input">
+                            <input id="dateOfJoining" class="form-control datepicker" type="text" placeholder="Enter Date of Joining">
+
+                        </div>
+                        <div class="help-block form-text with-errors form-control-feedback">
+                            <span id="validationemployeedateOfJoining" class="validation-message"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employeeSalary">Salary</label>
+                        <input id="employeeSalary" class="form-control" type="number" placeholder="Enter Salary" oninput="checkMaxLength(this)">
+                        <div class="help-block form-text with-errors form-control-feedback">
+                            <span id="validationemployeeSalary" class="validation-message"></span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button"> Close</button>
+                <button class="btn btn-primary" type="submit" onclick="submitEmployeeForm()"> Save changes</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" aria-labelledby="edit" class="modal fade" id="edit" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Edit Employee
+                </h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="ID" name="ID" value="" />
+
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input id="Name" class="form-control" type="text" placeholder="Enter Name" name="Name" />
+                    <div class="help-block form-text with-errors form-control-feedback"><span id="editvalidationEmployeeName" class="validation-message"></span></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Position">Position</label>
+                    <input id="Position" class="form-control" type="text" placeholder="Enter Position" name="Position" />
+                    <div class="help-block form-text with-errors form-control-feedback"><span id="editvalidationEmployeePosition" class="validation-message"></span></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Department">Department</label>
+                    <input id="Department" class="form-control" type="text" placeholder="Enter Department" name="Department" />
+                    <div class="help-block form-text with-errors form-control-feedback"><span id="editvalidationEmployeeDepartment" class="validation-message"></span></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="DateofJoining">Date of Joining</label>
+                    <div class="date-input">
+                        <input id="DateofJoining" class="form-control datepicker" type="text" placeholder="Enter Date of Joining" name="DateofJoining" />
+                    </div>
+                    <div class="help-block form-text with-errors form-control-feedback"><span id="editvalidationDateofJoining" class="validation-message"></span></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Salary">Salary</label>
+                    <input id="Salary" class="form-control" type="number" placeholder="Enter Salary" name="Salary" />
+                    <div class="help-block form-text with-errors form-control-feedback"><span id="editvalidationSalary" class="validation-message"></span></div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <button class="btn btn-primary" type="button" id="saveChanges">Save changes</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="details" class="modal fade" id="details" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsTitle">
+                    Employee Details
+                </h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="DetailsName">Name</label>
+                    <input id="DetailsName" class="form-control" type="text" placeholder="Enter Name" name="Name" readonly />
+                    <!-- You may want to add a span or div for validation messages if needed -->
+                </div>
+
+                <div class="form-group">
+                    <label for="DetailsPosition">Position</label>
+                    <input id="DetailsPosition" class="form-control" type="text" placeholder="Enter Position" name="Position" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="DetailsDepartment">Department</label>
+                    <input id="DetailsDepartment" class="form-control" type="text" placeholder="Enter Department" name="Department" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="DetailsDateofJoining">Date of Joining</label>
+                    <div class="date-input">
+                        <input id="DetailsDateofJoining" class="form-control" type="text" placeholder="Enter Date of Joining" name="DateofJoining" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="DetailsSalary">Salary</label>
+
+                    <input id="DetailsSalary" class="form-control" type="number" placeholder="Enter Salary" name="Salary" readonly />
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" aria-labelledby="delete" class="modal fade" id="delete" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Delete Employee
+                </h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true"> &times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="employeeId" name="employeeId" value="">
+                <div class="form-desc text-center" style="color: red; font-weight: bold">
+                    Are you sure you want to delete this data?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button"> Close</button>
+                <button id="deleteEmployee" class="btn btn-danger" type="button"> Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/Employee/EmployeeList.js"></script>
+    <script src="~/Scripts/Employee/EmployeeCMS.js"></script>
+}
